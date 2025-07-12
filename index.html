@@ -246,14 +246,14 @@
 
        <section class="section" id="projects">
    <div class="top-header">
-       <h1>Projects</h1>
+       <h1>Projets</h1>
    </div>
 
    <!-- Statistiques -->
    <div class="project-container">
       <div class="project-box">
           <i class="uil uil-briefcase-alt"></i>
-          <h3>Completed</h3>
+          <h3>Terminés</h3>
           <label>15+ Projets terminés</label>
       </div>
       <div class="project-box">
@@ -286,7 +286,7 @@
         </div>
         <p>Site E-commerce de vente de produits typiques africains a la diaspora.</p>
         <div class="project-links">
-            <a href="assets/Dunya.mp4" target="_blank" class="project-btn">Prévisualisez</a>
+            <a href="https://drive.google.com/file/d/1_qPHluRIv8nqZMhWYOYF9JaLO0SbDY0F/view?usp=drive_link" target="_blank" class="project-btn">Prévisualisez</a>
         </div>
       </div>
    </div>
@@ -308,7 +308,7 @@
    <div class="project-item">
       <img src="Assets/maillots.png" alt="E-commerce Website">
       <div class="project-overlay">
-        <h3>EliteKits</h3>
+        <h3>EliteKits (VERSION PC)</h3>
         <div class="project-tags">
             <span>HTML</span>
             <span>CSS</span>
@@ -418,20 +418,22 @@
                     <p><i class="uil uil-phone"></i> Tel: +228 92521296</p>
                 </div>
              </div>
-             <div class="col">
-                <div class="form-control">
-                    <div class="form-inputs">
-                        <input type="text" class="input-field" name="nom" placeholder="Nom">
-                        <input type="text" class="input-field" name="email" placeholder="Email">
-                    </div>
-                    <div class="text-area">
-                        <textarea placeholder="Message" name="message"></textarea>
-                    </div>
-                    <div class="form-button">
-                        <button class="btn">Send <i class="uil uil-message"></i></button>
-                    </div>
-                </div>
-             </div>
+           <div class="col">
+    <form id="contactForm" name="contact" method="POST" data-netlify="true">
+        <div class="form-control">
+            <div class="form-inputs">
+                <input type="text" class="input-field" name="nom" placeholder="Nom" required>
+                <input type="email" class="input-field" name="email" placeholder="Email" required>
+            </div>
+            <div class="text-area">
+                <textarea placeholder="Message" name="message" required></textarea>
+            </div>
+            <div class="form-button">
+                <button type="submit" class="btn">Send <i class="uil uil-message"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
           </div>
        </section>     
 
@@ -483,6 +485,35 @@
 
     <!-- ----- MAIN JS ----- -->
     <script src="main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche la soumission normale du formulaire
+
+        const formData = new FormData(contactForm); // Récupère toutes les données du formulaire
+
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Votre message a été envoyé avec succès !');
+                contactForm.reset();
+            } else {
+                alert('Une erreur est survenue lors de l\'envoi du message : ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la soumission du formulaire :', error);
+            alert('Impossible d\'envoyer le message pour le moment. Veuillez réessayer.');
+        });
+    });
+});
+    </script>
 
     <script>
 // Pop-up personnalisée
